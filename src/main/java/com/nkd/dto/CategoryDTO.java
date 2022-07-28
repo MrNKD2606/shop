@@ -1,6 +1,6 @@
 package com.nkd.dto;
 
-public class CategoryDTO {
+public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 
 	private String code;
 	private String name;

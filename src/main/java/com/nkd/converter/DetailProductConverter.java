@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.nkd.dto.ColorDTO;
 import com.nkd.dto.DetailProductDTO;
-import com.nkd.dto.ProductColorId;
 import com.nkd.entity.ProductColorEntity;
+import com.nkd.entity.ProductColorId;
 import com.nkd.entity.ProductEntity;
 import com.nkd.service.IColorService;
 import com.nkd.service.IProductService;
@@ -56,19 +56,17 @@ public class DetailProductConverter {
 
 	public DetailProductDTO toDto(ProductColorEntity entity) {
 		DetailProductDTO dto = new DetailProductDTO();
-		dto.setId(new ProductColorId(entity.getId().getColorId(), entity.getId().getProductId()));
+		dto.setMasp(entity.getProduct().getMasp());
 		dto.setName(entity.getProduct().getName());
 		dto.setImage(entity.getProduct().getImage());
-		dto.setMasp(entity.getProduct().getMasp());
-		dto.setShortDescription(entity.getProduct().getShortDescription());
 		dto.setCost(entity.getProduct().getCost());
+		dto.setShortDescription(entity.getProduct().getShortDescription());
+		dto.setPercent(entity.getPercent());
+		dto.setQuantity(entity.getQuantity());
 		dto.setCategoryCode(entity.getProduct().getCategory().getCode());
 		dto.setCategoryName(entity.getProduct().getCategory().getName());
 		dto.setColor(entity.getColor().getName());
 		dto.setColorCode(entity.getColor().getCode());
-		dto.setPercent(entity.getPercent());
-		dto.setPrice(entity.getProduct().getCost() + (entity.getPercent() * entity.getProduct().getCost() / 100));
-		dto.setQuantity(entity.getQuantity());
 		return dto;
 	}
 	
@@ -78,7 +76,7 @@ public class DetailProductConverter {
 		entity.setQuantity(dto.getQuantity());
 		entity.setColor(colorService.findOneByCode(dto.getColorCode()));
 		entity.setProduct(productService.findOneByMasp(dto.getMasp()));
-		com.nkd.entity.ProductColorId id = new com.nkd.entity.ProductColorId(entity.getProduct().getId(), entity.getColor().getId());
+		ProductColorId id = new ProductColorId(entity.getProduct().getId(), entity.getColor().getId());
 		entity.setId(id);
 		return entity;
 	}
@@ -88,7 +86,7 @@ public class DetailProductConverter {
 		entity.setQuantity(dto.getQuantity());
 		entity.setColor(colorService.findOneByCode(dto.getColorCode()));
 		entity.setProduct(productService.findOneByMasp(dto.getMasp()));
-		entity.setId(new com.nkd.entity.ProductColorId(entity.getProduct().getId(), entity.getColor().getId()));
+		entity.setId(new ProductColorId(entity.getProduct().getId(), entity.getColor().getId()));
 		return entity;
 	}
 	

@@ -11,8 +11,6 @@ import com.nkd.entity.ProductColorEntity;
 import com.nkd.entity.ProductColorId;
 
 public interface ProductColorRepository extends JpaRepository<ProductColorEntity, ProductColorId>{
-
-	
 	
 	List<ProductColorEntity> findAllByProductMasp(String masp);
 	

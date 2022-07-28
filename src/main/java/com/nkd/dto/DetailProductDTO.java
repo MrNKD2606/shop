@@ -7,20 +7,20 @@ public class DetailProductDTO {
 	private String masp;
 	private String name;
 	private String image;
-	private String shortDescription;
-	private Long categoryId;
-	private String categoryCode;
-	private String categoryName;
-
 	private Long cost;
-	private long price;
+	private String shortDescription;
+	
 	private long percent;
 	private int quantity;
-	private ProductColorId id;
+	
+	private String categoryCode;
+	private String categoryName;
+	private Long categoryId;
+	
 	private String color;
 	private String colorCode;
+	
 	private Set<ColorDTO> colors;
-	private Set<ColorDTO> colorsOK;
 
 	public DetailProductDTO() {
 	}
@@ -41,11 +41,7 @@ public class DetailProductDTO {
 	}
 
 	public long getPrice() {
-		return price;
-	}
-
-	public void setPrice(long price) {
-		this.price = price;
+		return cost * (100 + percent) / 100;
 	}
 
 	public int getQuantity() {
@@ -78,22 +74,6 @@ public class DetailProductDTO {
 
 	public void setColors(Set<ColorDTO> colors) {
 		this.colors = colors;
-	}
-
-	public Set<ColorDTO> getColorsOK() {
-		return colorsOK;
-	}
-
-	public void setColorsOK(Set<ColorDTO> colorsOK) {
-		this.colorsOK = colorsOK;
-	}
-
-	public ProductColorId getId() {
-		return id;
-	}
-
-	public void setId(ProductColorId id) {
-		this.id = id;
 	}
 
 	public String getMasp() {

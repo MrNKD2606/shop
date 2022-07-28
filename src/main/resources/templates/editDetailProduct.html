@@ -73,7 +73,7 @@
 									    <div class="col-md-4">
 									     	<select class="form-control" th:field="*{colorCode}">
 									     		<option value="">Chọn màu sản phẩm</option>
-									     		<option th:each="color : ${detailProduct.getColorsOK()}" th:value="${color.getCode()}" th:text="${color.getName()}"></option>
+									     		<option th:each="color : ${listColorOK}" th:value="${color.getCode()}" th:text="${color.getName()}"></option>
 									     	</select>
 									    </div>
 									    

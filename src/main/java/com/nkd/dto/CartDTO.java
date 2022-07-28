@@ -6,32 +6,31 @@ import java.util.Set;
 public class CartDTO extends AbstractDTO<CategoryDTO> {
 
 	private Set<OrderDTO> listOrder;
-	private String userName;
-	private Long total;
-	private int count;
 	private String name;
+	private String maCart;
 	private String phone;
 	private String address;
 	private String note;
+	private int status;
 
 	public CartDTO() {
 		this.listOrder = new HashSet<>();
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
 	public Long getTotal() {
+		long total = 0;
+		for(OrderDTO item : listOrder) {
+			total = total + item.getAmount()*item.getPrice();
+		}
 		return total;
 	}
-
-	public void setTotal(Long total) {
-		this.total = total;
+	
+	public int getCount() {
+		int count = 0;
+		for(OrderDTO item : listOrder) {
+			count = count + item.getAmount();
+		}
+		return count;
 	}
 
 	public Set<OrderDTO> getListOrder() {
@@ -40,14 +39,6 @@ public class CartDTO extends AbstractDTO<CategoryDTO> {
 
 	public void setListOrder(Set<OrderDTO> listOrder) {
 		this.listOrder = listOrder;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
 	}
 
 	public String getName() {
@@ -80,6 +71,22 @@ public class CartDTO extends AbstractDTO<CategoryDTO> {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public String getMaCart() {
+		return maCart;
+	}
+
+	public void setMaCart(String maCart) {
+		this.maCart = maCart;
 	}
 
 }

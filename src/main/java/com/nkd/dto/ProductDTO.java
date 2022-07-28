@@ -1,7 +1,5 @@
 package com.nkd.dto;
 
-import java.util.Set;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,13 +15,12 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	private String name;
 
 	private String image;
-	private String shortDescription;
 	private Long cost;
-
+	private String shortDescription;
 	private Long categoryId;
+
 	private String categoryCode;
 	private String categoryName;
-	private Set<CategoryDTO> categories;
 
 	public ProductDTO() {
 	}
@@ -36,7 +33,6 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 		this.categoryId = obj.categoryId;
 		this.categoryCode = obj.categoryCode;
 		this.categoryName = obj.categoryName;
-		this.categories = obj.categories;
 	}
 
 	public String getMasp() {
@@ -93,14 +89,6 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-
-	public Set<CategoryDTO> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Set<CategoryDTO> categories) {
-		this.categories = categories;
 	}
 
 	public Long getCost() {

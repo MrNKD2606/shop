@@ -12,12 +12,16 @@ public class OrderDTO {
 	private String colorCode;
 	private Long cost;
 	private long percent;
-	private long price;
-	private int quantity;
 	private int amount;
+	private int quantity;
+
 	private Set<ColorDTO> colors;
 
 	public OrderDTO() {
+	}
+	
+	public long getPrice() {
+		return cost * (100 + percent) / 100;
 	}
 
 	public String getMasp() {
@@ -90,14 +94,6 @@ public class OrderDTO {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	public long getPrice() {
-		return price;
-	}
-
-	public void setPrice(long price) {
-		this.price = price;
 	}
 
 	public String getColorCode() {

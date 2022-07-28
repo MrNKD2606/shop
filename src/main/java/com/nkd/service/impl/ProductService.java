@@ -45,4 +45,9 @@ public class ProductService implements IProductService {
 		return productRepository.findOneByMasp(masp);
 	}
 
+	@Override
+	public List<ProductEntity> findAllByCategoryCode(String categoryCode) {
+		return productRepository.findAllByCategoryCode(categoryCode);
+	}
+
 }

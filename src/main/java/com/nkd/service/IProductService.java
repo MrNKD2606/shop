@@ -13,4 +13,6 @@ public interface IProductService {
 	
 	ProductEntity findOneByMasp(String masp);
 
+	List<ProductEntity> findAllByCategoryCode(String categoryCode);
+
 }

@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nkd.converter.DetailProductConverter;
-import com.nkd.dto.DetailProductDTO;
 import com.nkd.entity.ProductColorEntity;
 import com.nkd.entity.ProductColorId;
 import com.nkd.repository.ProductColorRepository;
@@ -16,9 +14,6 @@ import com.nkd.service.IProductService;
 
 @Service
 public class DetailProductService implements IDetailProductService {
-
-	@Autowired
-	private DetailProductConverter detailProductConverter;
 
 	@Autowired
 	private ProductColorRepository productColorRepository;
@@ -35,18 +30,7 @@ public class DetailProductService implements IDetailProductService {
 	}
 
 	@Override
-	public void save(DetailProductDTO dto) {
-		ProductColorEntity entity = new ProductColorEntity();
-		if (dto.getId() != null) {
-			entity = productColorRepository
-					.findOne(new ProductColorId(dto.getId().getProductId(), dto.getId().getColorId()));
-			long idColorOld = entity.getId().getColorId();
-			entity = detailProductConverter.toEntity(dto, entity);
-			productColorRepository.delete(new ProductColorId(dto.getId().getProductId(), idColorOld));
-		} else {
-			entity = detailProductConverter.toEntity(dto);
-
-		}
+	public void save(ProductColorEntity entity) {
 		productColorRepository.save(entity);
 	}
 

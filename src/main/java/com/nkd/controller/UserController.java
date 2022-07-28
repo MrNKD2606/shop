@@ -52,14 +52,19 @@ public class UserController {
 	@Autowired
 	private ICartService cartService;
 
-	@RequestMapping(value = "/web", method = RequestMethod.GET)
-	public String web(HttpServletRequest request, Model model) {
+	@GetMapping(value = { "/web", "/web/{categoryCode}" })
+	public String web(HttpServletRequest request, Model model, @PathVariable(required = false) String categoryCode) {
 		CartDTO myCart = Utils.getCartInSession(request);
 		model.addAttribute("cart", myCart);
-		model.addAttribute("products", productService.findAll());
+		if(categoryCode == null) {
+			model.addAttribute("products", productService.findAll());
+		} else {
+			model.addAttribute("products", productService.findAllByCategoryCode(categoryCode));
+		}
+		
 		return "web";
 	}
-
+	
 	@GetMapping(value = { "/web/order/{masp}", "/web/order/{masp}/{codeColor}" })
 	public String order(HttpServletRequest request, Model model, @PathVariable String masp,
 			@PathVariable(required = false) String codeColor) {
@@ -96,8 +101,6 @@ public class UserController {
 		CartDTO result = Utils.getCartInSession(request);
 		Set<OrderDTO> list = result.getListOrder();
 		result.setListOrder(cartService.addOrderToSetOrder(order, list));
-		result.setTotal(cartService.totalCart(result.getListOrder()));
-		result.setCount(cartService.countProductToCart(result.getListOrder()));
 
 		model.addAttribute("cart", result);
 		model.addAttribute("product", order);
@@ -117,8 +120,6 @@ public class UserController {
 			}
 		}
 		result.setListOrder(list);
-		result.setTotal(cartService.totalCart(list));
-		result.setCount(cartService.countProductToCart(list));
 
 		model.addAttribute("cart", result);
 		return "redirect:/web/cart";
@@ -144,8 +145,6 @@ public class UserController {
 			}
 		}
 		result.setListOrder(list);
-		result.setTotal(cartService.totalCart(list));
-		result.setCount(cartService.countProductToCart(list));
 
 		model.addAttribute("cart", result);
 		return "redirect:/web/cart";

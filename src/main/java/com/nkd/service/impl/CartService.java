@@ -1,6 +1,8 @@
 package com.nkd.service.impl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ import com.nkd.repository.CartRepository;
 import com.nkd.service.ICartService;
 import com.nkd.service.IColorService;
 import com.nkd.service.IProductService;
+import com.nkd.util.DateUtils;
 
 @Service
 public class CartService implements ICartService {
@@ -96,6 +99,32 @@ public class CartService implements ICartService {
 			list.add(entity);
 		}
 		cartProductColorRepository.save(list);
+	}
+
+	@Override
+	public List<CartEntity> findAll() {
+		return cartRepository.findAll();
+	}
+
+	@Override
+	public List<CartEntity> findAllByStatus(int status) {
+		return cartRepository.findAllByStatus(status);
+	}
+
+	@Override
+	@Transactional
+	public void payCart(CartEntity entity) {
+		entity.setStatus(0);
+		cartRepository.save(entity);
+	}
+
+	@Override
+	public List<CartEntity> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status) {
+		List<CartEntity> entities = new ArrayList<>();
+		Date s = DateUtils.asDate(start);
+		Date e = DateUtils.asDate(end.plusDays(1));
+		entities = cartRepository.findAllByCreatedDateBetweenAndStatus(s, e, status);
+		return entities;
 	}
 
 }

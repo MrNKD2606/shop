@@ -9,4 +9,5 @@ public interface ICategoryService {
 	List<CategoryEntity> findAll();
 	
 	CategoryEntity findOneByCode(String categoryCode);
+	
 }

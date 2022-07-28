@@ -49,122 +49,145 @@ body {
 	<th:block th:include="/header"></th:block>
 	
 	<section>
-		<div>
-			<a>Mua sản phẩm khác</a>
-			<span style="float: right;">Giỏ hàng của bạn</span>
-		</div>
+		<th:block th:if="${cart.getListOrder().size()} == 0">
+			<div class="row" style="text-align: center;">
+				<div class="col-12">
+					<i class="bi-cart-fill me-1" style="font-size: 50px;"></i>
+				</div>
+				<div class="col-12">
+					<h5>Không có sản phẩm nào trong giỏ hàng</h5>
+				</div>
+				<div class="col-12">
+					<a class="btn" style="width: 80%; border: 1px solid #288ad6;" th:href='@{/web}'><span style="color: #288ad6; font-weight: bold;">VỀ TRANG CHỦ</span></a>
+				</div>
+			</div>
+		</th:block>
 		
-		<div class="middleCart container">
-			<div class="row">
-			<form th:action="@{/web/addCart}" th:object="${cart}" method="POST">
-				<div class="list-cart col-12">
-					<div class="row">
-						<div class="product-item col-12">
+		<th:block th:if="${cart.getListOrder().size()} != 0">
+			<div>
+				<a>Mua sản phẩm khác</a>
+				<span style="float: right;">Giỏ hàng của bạn</span>
+			</div>
+		
+			<div class="middleCart container">
+				<div class="row">
+				<form th:action="@{/web/addCart}" th:object="${cart}" method="POST">
+					<div class="list-cart col-12">
+						<div class="row">
+							<div class="product-item col-12">
+								<div class="row">
+								<th:block th:each="item : ${cart.getListOrder()}">
+									<div class="imgsp col-sm-2">
+										<a href=""><img alt="..." src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" /></a>
+										<div style="text-align: center;">
+											<a th:href="@{/web/deleteOrder/{masp}/{codeColor}(masp=${item.getMasp()}, codeColor=${item.getColorCode()})}">Xóa</a>
+										</div>
+									</div>
+										
+									<div class="infosp col-sm-10">
+										<div class="row">
+											<div class="col-sm-9" th:utext="${item.getName()}"></div>
+											<div class="col-sm-3" style="text-align: right;" th:utext="${item.getPrice()}"></div>
+											<div class="col-sm-12" th:utext="${item.getShortDescription()}"></div>
+											<div class="col-sm-8" th:utext="${item.getColorName()}"></div>
+											<div class="col-sm-4">	
+											 	<ul class="pagination" style="float: right;">
+											 		<th:block th:if="${item.getAmount()} == 1">
+												   		<li class="page-item disabled" style="width: 40px;">
+												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
+												    	</li>
+											    	</th:block>
+											    	<th:block th:if="${item.getAmount()} > 1">
+												   		<li class="page-item" style="width: 40px;">
+												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
+												    	</li>
+											    	</th:block>
+											    	<li class="page-item disabled">
+											    	 	<input th:value="${item.getAmount()}" style="width: 40px; background: white; border: 1px solid #dee2e6; text-align: center;" class="page-link" name="" type="text"/>
+											    	</li>
+											    	<th:block th:if="${item.getQuantity()} > ${item.getAmount()}">
+											    		<li class="page-item" style="width: 40px;">
+											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
+											    		</li>
+											    	</th:block>
+											    	<th:block th:if="${item.getAmount()} >= ${item.getQuantity()}">
+											    		<li class="page-item disabled" style="width: 40px;">
+											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
+											    		</li>
+											    	</th:block>
+											    	
+											  </ul>
+											</div>
+										</div> 
+									</div>		
+								</th:block>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-12" style="margin: 15px 0;">
+						<div class="row">
+							<span class="col-sm-6">Tạm tính: (<span th:utext="${cart.getCount()}"></span> sản phẩm)</span>
+							<span class="col-sm-6" style="text-align: right;">Price: <span th:utext="${cart.getTotal()}"></span></span>
+						</div>
+					</div>
+				
+					<div class="col-12" style="border-top: 1px solid #d1d1d1; padding-top: 12px; margin-bottom: 15px;">
+						<h4 style="margin: 0;">Thông tin khách hàng</h4>
+						
 							<div class="row">
-							<th:block th:each="item : ${cart.getListOrder()}">
-								<div class="imgsp col-sm-2">
-									<a href=""><img alt="..." src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" /></a>
-									<div style="text-align: center;">
-										<a th:href="@{/web/deleteOrder/{masp}/{codeColor}(masp=${item.getMasp()}, codeColor=${item.getColorCode()})}">Xóa</a>
+								<div class="col-md-12">
+									<div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+	                        		<div style="color: red;" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+	                        		<div style="color: red;" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+								</div>
+								
+								<div class="col-md-12">
+									<label th:for="name" class="col-form-label">Họ và tên *</label>
+									<div class="">
+										<input type="text" class="form-control" th:field="*{name}"/>
 									</div>
 								</div>
-									
-								<div class="infosp col-sm-10">
-									<div class="row">
-										<div class="col-sm-9" th:utext="${item.getName()}"></div>
-										<div class="col-sm-3" style="text-align: right;" th:utext="${item.getPrice()}"></div>
-										<div class="col-sm-12" th:utext="${item.getShortDescription()}"></div>
-										<div class="col-sm-8" th:utext="${item.getColorName()}"></div>
-										<div class="col-sm-4">	
-										 	<ul class="pagination" style="float: right;">
-										 		<th:block th:if="${item.getAmount()} == 1">
-											   		<li class="page-item disabled" style="width: 40px;">
-											      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
-											    	</li>
-										    	</th:block>
-										    	<th:block th:if="${item.getAmount()} > 1">
-											   		<li class="page-item" style="width: 40px;">
-											      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
-											    	</li>
-										    	</th:block>
-										    	<li class="page-item disabled">
-										    	 	<input th:value="${item.getAmount()}" style="width: 40px; background: white; border: 1px solid #dee2e6; text-align: center;" class="page-link" name="" type="text"/>
-										    	</li>
-										    	<th:block th:if="${item.getQuantity()} > ${item.getAmount()}">
-										    		<li class="page-item" style="width: 40px;">
-										      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
-										    		</li>
-										    	</th:block>
-										    	<th:block th:if="${item.getAmount()} >= ${item.getQuantity()}">
-										    		<li class="page-item disabled" style="width: 40px;">
-										      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
-										    		</li>
-										    	</th:block>
-										    	
-										  </ul>
-										</div>
-									</div> 
-								</div>		
-							</th:block>
+								<div class="col-md-6">
+									<label th:for="phone" class="col-form-label">Số điện thoại *</label>
+									<div class="">
+										<input type="text" class="form-control" th:field="*{phone}"/>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<label th:for="address" class="col-form-label">Địa chỉ *</label>
+									<div class="">
+										<input type="text" class="form-control" th:field="*{address}"/>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<label th:for="note" class="col-md-2 col-form-label">Ghi chú:</label>
+									<div>
+										<textarea th:field="*{note}" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
+									</div>
+								</div>
 							</div>
-						</div>
+						
 					</div>
-				</div>
-			
-				<div class="col-12" style="margin: 15px 0;">
-					<div class="row">
-						<span class="col-sm-6">Tạm tính: (<span th:utext="${cart.getCount()}"></span> sản phẩm)</span>
-						<span class="col-sm-6" style="text-align: right;">Price: <span th:utext="${cart.getTotal()}"></span></span>
+					
+					<div class="col-12" style="border-top: 1px solid #d1d1d1; padding-top: 12px;">
+						<span>Tổng tiền:</span>
+						<span style="float: right;" th:utext="${cart.getTotal()}"></span>
 					</div>
-				</div>
-			
-				<div class="col-12" style="border-top: 1px solid #d1d1d1; padding-top: 12px; margin-bottom: 15px;">
-					<h4 style="margin: 0;">Thông tin khách hàng</h4>
 					
-						<div class="row">
-							<div class="col-md-12">
-								<label th:for="name" class="col-form-label">Họ và tên *</label>
-								<div class="">
-									<input type="text" class="form-control" th:field="*{name}"/>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<label th:for="phone" class="col-form-label">Số điện thoại *</label>
-								<div class="">
-									<input type="text" class="form-control" th:field="*{phone}"/>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<label th:for="address" class="col-form-label">Địa chỉ *</label>
-								<div class="">
-									<input type="text" class="form-control" th:field="*{address}"/>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<label th:for="note" class="col-md-2 col-form-label">Ghi chú:</label>
-								<div>
-									<textarea th:field="*{note}" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
-								</div>
-							</div>
-						</div>
-					
+					<div class="col-12">
+						<button type="submit" style="margin-top: 10px; margin-bottom: 30px; width: 100%;" class="btn btn-success">ĐẶT HÀNG</button>
+					</div>
+					</form>
 				</div>
-				
-				<div class="col-12" style="border-top: 1px solid #d1d1d1; padding-top: 12px;">
-					<span>Tổng tiền:</span>
-					<span style="float: right;" th:utext="${cart.getTotal()}"></span>
-				</div>
-				
-				<div class="col-12">
-					<button type="submit" style="margin-top: 10px; margin-bottom: 30px; width: 100%;" class="btn btn-success">ĐẶT HÀNG</button>
-				</div>
-				</form>
 			</div>
-		</div>
+			
+			<div style="text-align: center;">
+				<p>Bằng cách đặt hàng, bạn đồng ý với Điều khoản sử dụng của chúng tôi</p>
+			</div>
+		</th:block>
 		
-		<div style="text-align: center;">
-			<p>Bằng cách đặt hàng, bạn đồng ý với Điều khoản sử dụng của chúng tôi</p>
-		</div>
 	</section>
 	
 	<!-- Bootstrap core JS-->
