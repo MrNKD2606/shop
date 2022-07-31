@@ -144,6 +144,7 @@ public class AdminController {
 	@PostMapping(value = { "/admin/editProduct", "/admin/editProduct/{masp}" })
 	public String editProduct(Model model, @PathVariable(required = false) String masp,
 			@ModelAttribute("product") @Valid ProductDTO product, BindingResult bindingResult) {
+		
 		if (masp != null) {
 			product.setId(productService.findOneByMasp(masp).getId());
 		}

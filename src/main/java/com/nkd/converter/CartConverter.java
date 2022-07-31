@@ -27,6 +27,7 @@ public class CartConverter {
 		dto.setCost(entity.getProduct().getCost());
 		dto.setPercent(entity.getPercent());
 		dto.setQuantity(entity.getQuantity());
+		dto.setImage(entity.getProduct().getImage());
 		return dto;
 	}
 

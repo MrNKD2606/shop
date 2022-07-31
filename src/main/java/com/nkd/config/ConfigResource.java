@@ -12,7 +12,7 @@ public abstract class ConfigResource implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/web/**")
-				.addResourceLocations("classpath:/static/web/");
+				.addResourceLocations("classpath:/static/");
 	}
 
 }

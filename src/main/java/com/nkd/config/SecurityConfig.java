@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/web/**", "/web1/**", "/admin1/**").permitAll()
+			.antMatchers("/web/**", "/web1/**", "/admin1/**", "/images/**").permitAll()
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().authenticated()
 			.and().exceptionHandling().accessDeniedPage("/403")

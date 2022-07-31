@@ -61,7 +61,6 @@ public class UserController {
 		} else {
 			model.addAttribute("products", productService.findAllByCategoryCode(categoryCode));
 		}
-		
 		return "web";
 	}
 	
@@ -152,7 +151,6 @@ public class UserController {
 
 	@GetMapping(value = "/web/cart")
 	public String cart(HttpServletRequest request, Model model) {
-
 		CartDTO myCart = Utils.getCartInSession(request);
 		model.addAttribute("cart", myCart);
 		return "cart";

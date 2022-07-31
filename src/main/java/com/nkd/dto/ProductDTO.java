@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ProductDTO extends AbstractDTO<ProductDTO> {
 
@@ -14,7 +15,10 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 	@Size(min = 2, max = 10, message = "ít hơn 2 hoặc nhiều hơn 10 ký tự")
 	private String name;
 
-	private String image;
+	// private String image;
+
+	private MultipartFile image;
+
 	private Long cost;
 	private String shortDescription;
 	private Long categoryId;
@@ -51,16 +55,24 @@ public class ProductDTO extends AbstractDTO<ProductDTO> {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
+//	public String getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(String image) {
+//		this.image = image;
+//	}
 
 	public String getShortDescription() {
 		return shortDescription;
+	}
+
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
 	}
 
 	public void setShortDescription(String shortDescription) {
