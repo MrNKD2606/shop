@@ -5,14 +5,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.CartEntity;
+import com.nkd.entity.Cart;
 
-public interface CartRepository extends JpaRepository<CartEntity, Long> {
+public interface CartRepository extends JpaRepository<Cart, Long> {
 
-	CartEntity findOneByMaCart(String macart);
+	Cart findOneByMaCart(String macart);
 
-	List<CartEntity> findAllByStatus(int status);
+	List<Cart> findAllByStatus(int status);
 
-	List<CartEntity> findAllByCreatedDateBetweenAndStatus(Date start, Date end, int status);
+	List<Cart> findAllByCreatedDateBetweenAndStatus(Date start, Date end, int status);
 
 }

@@ -80,7 +80,7 @@ body {
 									<div class="imgsp col-sm-2">
 										<a href=""><img alt="..." src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" /></a>
 										<div style="text-align: center;">
-											<a th:href="@{/web/deleteOrder/{masp}/{codeColor}(masp=${item.getMasp()}, codeColor=${item.getColorCode()})}">Xóa</a>
+											<a th:href="@{/web/deleteOrder/{masp}/{codeColor}(masp=${item.getMasp()}, codeColor=${item.getColor().getCode()})}">Xóa</a>
 										</div>
 									</div>
 										
@@ -89,17 +89,17 @@ body {
 											<div class="col-sm-9" th:utext="${item.getName()}"></div>
 											<div class="col-sm-3" style="text-align: right;" th:utext="${item.getPrice()}"></div>
 											<div class="col-sm-12" th:utext="${item.getShortDescription()}"></div>
-											<div class="col-sm-8" th:utext="${item.getColorName()}"></div>
+											<div class="col-sm-8" th:utext="${item.getColor().getName()}"></div>
 											<div class="col-sm-4">	
 											 	<ul class="pagination" style="float: right;">
 											 		<th:block th:if="${item.getAmount()} == 1">
 												   		<li class="page-item disabled" style="width: 40px;">
-												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
+												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColor().getCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
 												    	</li>
 											    	</th:block>
 											    	<th:block th:if="${item.getAmount()} > 1">
 												   		<li class="page-item" style="width: 40px;">
-												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
+												      		<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColor().getCode()}, edit=sub)}" class="page-link" style="text-align: center;">-</a>
 												    	</li>
 											    	</th:block>
 											    	<li class="page-item disabled">
@@ -107,12 +107,12 @@ body {
 											    	</li>
 											    	<th:block th:if="${item.getQuantity()} > ${item.getAmount()}">
 											    		<li class="page-item" style="width: 40px;">
-											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
+											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColor().getCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
 											    		</li>
 											    	</th:block>
 											    	<th:block th:if="${item.getAmount()} >= ${item.getQuantity()}">
 											    		<li class="page-item disabled" style="width: 40px;">
-											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColorCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
+											      			<a th:href="@{/web/editOrder/{masp}/{codeColor}/{edit}(masp=${item.getMasp()}, codeColor=${item.getColor().getCode()}, edit=plus)}" class="page-link" style="text-align: center;" href="#">+</a>
 											    		</li>
 											    	</th:block>
 											    	

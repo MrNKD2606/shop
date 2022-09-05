@@ -7,16 +7,18 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.nkd.entity.ProductColorEntity;
+import com.nkd.entity.ProductColor;
 import com.nkd.entity.ProductColorId;
 
-public interface ProductColorRepository extends JpaRepository<ProductColorEntity, ProductColorId>{
+public interface ProductColorRepository extends JpaRepository<ProductColor, ProductColorId>{
 	
-	List<ProductColorEntity> findAllByProductMasp(String masp);
+	List<ProductColor> findAllByProductMasp(String masp);
 	
 	@Modifying
 	@Query(value = "update productes_colors u set u.color_id = ? where u.color_id = ? and u.product_id = ?", 
 	  nativeQuery = true)
 	void update(@Param("colorId") Long colorId, @Param("colorId") Long colorIdOld, @Param("productId") Long productId);
+
+	
 
 }

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "carts_productes_colors")
-public class CartProductColorEntity {
+public class CartProductColor {
 
 	@EmbeddedId
 	private CartProductColorId id;
@@ -17,17 +17,17 @@ public class CartProductColorEntity {
 	@ManyToOne
 	@MapsId("cartId")
 	@JoinColumn(name = "cart_id")
-	private CartEntity cart;
+	private Cart cart;
 
 	@ManyToOne
 	@MapsId("productId")
 	@JoinColumn(name = "product_id")
-	private ProductEntity product;
+	private Product product;
 
 	@ManyToOne
 	@MapsId("colorId")
 	@JoinColumn(name = "color_id")
-	private ColorEntity color;
+	private Color color;
 
 	private Long percent;
 
@@ -43,27 +43,27 @@ public class CartProductColorEntity {
 		this.id = id;
 	}
 
-	public CartEntity getCart() {
+	public Cart getCart() {
 		return cart;
 	}
 
-	public void setCart(CartEntity cart) {
+	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
 
-	public ProductEntity getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductEntity product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	public ColorEntity getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(ColorEntity color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

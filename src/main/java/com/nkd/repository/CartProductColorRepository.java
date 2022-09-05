@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.CartProductColorEntity;
+import com.nkd.entity.CartProductColor;
 import com.nkd.entity.CartProductColorId;
 
-public interface CartProductColorRepository extends JpaRepository<CartProductColorEntity, CartProductColorId>{
+public interface CartProductColorRepository extends JpaRepository<CartProductColor, CartProductColorId>{
 
-	List<CartProductColorEntity> findAllByCart_Id(long idCart);
+	List<CartProductColor> findAllByCart_Id(long idCart);
 
 }

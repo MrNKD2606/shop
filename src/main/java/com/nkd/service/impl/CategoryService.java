@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nkd.entity.CategoryEntity;
+import com.nkd.entity.Category;
 import com.nkd.repository.CategoryRepository;
 import com.nkd.service.ICategoryService;
 
@@ -16,12 +16,12 @@ public class CategoryService implements ICategoryService {
 	private CategoryRepository categoryRepository;
 	
 	@Override
-	public List<CategoryEntity> findAll() {
+	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
 
 	@Override
-	public CategoryEntity findOneByCode(String categoryCode) {
+	public Category findOneByCode(String categoryCode) {
 		return categoryRepository.findOneByCode(categoryCode);
 	}
 }

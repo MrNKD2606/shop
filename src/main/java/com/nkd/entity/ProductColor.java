@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "productes_colors")
-public class ProductColorEntity {
+public class ProductColor {
 
 	@EmbeddedId
 	private ProductColorId id;
@@ -17,12 +17,12 @@ public class ProductColorEntity {
 	@ManyToOne
 	@MapsId("productId")
 	@JoinColumn(name = "product_id")
-	private ProductEntity product;
+	private Product product;
 
 	@ManyToOne
 	@MapsId("colorId")
 	@JoinColumn(name = "color_id")
-	private ColorEntity color;
+	private Color color;
 
 	private Long percent;
 
@@ -36,19 +36,19 @@ public class ProductColorEntity {
 		this.id = id;
 	}
 
-	public ProductEntity getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(ProductEntity product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	public ColorEntity getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(ColorEntity color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

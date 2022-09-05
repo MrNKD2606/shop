@@ -4,10 +4,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.RoleEntity;
+import com.nkd.entity.Role;
 
-public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-	Optional<RoleEntity> findOneByCode(String item);
+	Optional<Role> findOneByCode(String item);
 
 }

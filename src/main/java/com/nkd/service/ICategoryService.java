@@ -2,12 +2,12 @@ package com.nkd.service;
 
 import java.util.List;
 
-import com.nkd.entity.CategoryEntity;
+import com.nkd.entity.Category;
 
 public interface ICategoryService {
 	
-	List<CategoryEntity> findAll();
+	List<Category> findAll();
 	
-	CategoryEntity findOneByCode(String categoryCode);
+	Category findOneByCode(String categoryCode);
 	
 }

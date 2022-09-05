@@ -64,7 +64,7 @@
 							
 							<th:block th:each="item : ${products}">
     							<tr>
-    								<td><span th:utext="${item.getCategoryName()}"></span></td>
+    								<td><span th:utext="${item.getCategory().getName()}"></span></td>
     								<td th:utext="${item.getMasp()}"></td>
     								<td><span th:utext="${item.getName()}"></span></td>
     								<td><span th:utext="${item.getShortDescription()}"></span></td>
@@ -76,7 +76,7 @@
     									<a class="btn btn-primary" data-toggle="tooltip" title="Edit sản phẩm" th:href='@{/admin/showEditProduct/{masp}(masp=${item.getMasp()})}'>
     										<i class="fas fa-edit" aria-hidden="true"></i>
 										</a>
-										<a class="btn btn-danger" data-toggle="tooltip" title="Xóa bài viết" href='${#}'>
+										<a class="btn btn-danger" data-toggle="tooltip" title="Xóa bài viết" th:href='@{/admin/product/{masp}(masp=${item.getMasp()})}'>
     										<i class="far fa-calendar-times" aria-hidden="true"></i>
 										</a>
     								</td>

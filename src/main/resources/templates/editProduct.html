@@ -31,7 +31,7 @@
 	            		<div class="card-body">
 	                     	<p class="mb-0">
 	                     		<div class="card-header" style="margin-bottom: 20px;"><h3 class="text-center font-weight-light my-4">Form thêm mới sản phẩm</h3></div>
-	                        	<form action="#" th:action="${add} ? @{/admin/editProduct} : @{/admin/editProduct/{masp}(masp=${product.getMasp()})}" th:object="${product}" method="POST" enctype="multipart/form-data">
+	                        	<form action="#" th:action="${add} ? @{/admin/product} : @{/admin/product/{masp}(masp=${productForm.getMasp()})}" th:object="${productForm}" method="POST" enctype="multipart/form-data">
 	                        		<div th:if="${#fields.hasErrors('global')}">
 									    <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
 									</div>
@@ -56,7 +56,7 @@
 									    <div class="col-md-4">
 									     	<select class="form-control" th:field="*{categoryCode}">
 									     		<option value="">Chọn loại sản phẩm</option>
-									     		<option th:each="category : ${carts}" th:value="${category.getCode()}" th:text="${category.getName()}"></option>
+									     		<option th:each="category : ${cartegorys}" th:value="${category.getCode()}" th:text="${category.getName()}"></option>
 									     	</select>
 									    </div>
 									    
@@ -73,10 +73,20 @@
 										</div>
 									</div>
 									
-									<div class="row mb-3">
+									<div class="row mb-3" th:if="${productForm.getImage() != null}">
 										<label for="image" class="col-md-2 col-form-label">Ảnh:</label>
+										<label for="image" class="col-md-4 col-form-label" th:text="${productForm.getImage()}" ></label>
+										
+										<label for="image" class="col-md-2 col-form-label">Chọn ảnh:</label>
+									    <div class="col-md-4">
+									     	<input type="file" class="form-control" th:field="*{chooseImage}"/>
+									    </div>
+									</div>
+									
+									<div class="row mb-3" th:if="${productForm.getImage() == null}">
+										<label for="image" class="col-md-2 col-form-label">Chọn ảnh:</label>
 									    <div class="col-md-10">
-									     	<input type="file" class="form-control" th:field="*{image}"/>
+									     	<input type="file" class="form-control" th:field="*{chooseImage}"/>
 									    </div>
 									</div>
 									

@@ -31,7 +31,7 @@
 	            		<div class="card-body">
 	                     	<p class="mb-0">
 	                     		<div class="card-header" style="margin-bottom: 20px;"><h3 class="text-center font-weight-light my-4">Form thêm mới sản phẩm</h3></div>
-	                        	<form action="#" th:action="${add} ? @{/admin/editDetailProduct/{masp}(masp=${masp})} : @{/admin/editDetailProduct/{masp}/{codeColor}(masp=${masp}, codeColor=${detailProduct.getColorCode()})}" th:object="${detailProduct}" method="POST" enctype="multipart/form-data">
+	                        	<form action="#" th:action="${add} ? @{/admin/editDetailProduct/{masp}(masp=${masp})} : @{/admin/editDetailProduct/{masp}/{codeColor}(masp=${masp}, codeColor=${detailProductForm.getColorCode()})}" th:object="${detailProductForm}" method="POST" enctype="multipart/form-data">
 	                        		<!-- <div class="row mb-3">
 	                        			<div style="color: red;" th:if="${#fields.hasErrors('masp')}" th:errors="*{masp}">Name Error</div>
 	                        			<div style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
@@ -55,7 +55,7 @@
 									    	<input type="text" class="form-control" th:field="*{categoryName}" disabled="disabled"/>
 									    </div>
 									    
-									    <label th:for="categoryCode" class="col-md-2 col-form-label">Giá tiền:</label>
+									    <label th:for="cost" class="col-md-2 col-form-label">Giá tiền:</label>
 									    <div class="col-md-4">
 									    	<input type="text" class="form-control" th:field="*{cost}" disabled="disabled"/>
 									    </div>

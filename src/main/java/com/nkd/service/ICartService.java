@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.nkd.dto.CartDTO;
 import com.nkd.dto.OrderDTO;
-import com.nkd.entity.CartEntity;
+import com.nkd.entity.Cart;
 
 public interface ICartService {
 
@@ -18,13 +18,13 @@ public interface ICartService {
 
 	void save(CartDTO myCart);
 	
-	List<CartEntity> findAll();
+	List<Cart> findAll();
 	
-	List<CartEntity> findAllByStatus(int status);
+	List<Cart> findAllByStatus(int status);
 
-	CartEntity findOneByMaCart(String maCart);
+	Cart findOneByMaCart(String maCart);
 
-	void payCart(CartEntity entity);
+	void payCart(Cart entity);
 	
-	List<CartEntity> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status);
+	List<Cart> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status);
 }

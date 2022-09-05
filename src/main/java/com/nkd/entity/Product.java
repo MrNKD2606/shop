@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "productes")
-public class ProductEntity extends BaseEntity {
+public class Product extends BaseEntity {
 
 	@Column(name = "masp")
 	private String masp;
@@ -30,13 +30,13 @@ public class ProductEntity extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private CategoryEntity category;
+	private Category category;
 
 	@OneToMany(mappedBy = "product")
-	private Set<ProductColorEntity> productColor;
+	private Set<ProductColor> productColor;
 
 	@OneToMany(mappedBy = "product")
-	private Set<CartProductColorEntity> cartProductColor;
+	private Set<CartProductColor> cartProductColor;
 
 	public String getName() {
 		return name;
@@ -54,19 +54,19 @@ public class ProductEntity extends BaseEntity {
 		this.image = image;
 	}
 
-	public CategoryEntity getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(CategoryEntity category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	public Set<ProductColorEntity> getproductColor() {
+	public Set<ProductColor> getproductColor() {
 		return productColor;
 	}
 
-	public void setproductColor(Set<ProductColorEntity> price) {
+	public void setproductColor(Set<ProductColor> price) {
 		this.productColor = price;
 	}
 
@@ -94,19 +94,19 @@ public class ProductEntity extends BaseEntity {
 		this.cost = cost;
 	}
 
-	public Set<ProductColorEntity> getProductColor() {
+	public Set<ProductColor> getProductColor() {
 		return productColor;
 	}
 
-	public void setProductColor(Set<ProductColorEntity> productColor) {
+	public void setProductColor(Set<ProductColor> productColor) {
 		this.productColor = productColor;
 	}
 
-	public Set<CartProductColorEntity> getCartProductColor() {
+	public Set<CartProductColor> getCartProductColor() {
 		return cartProductColor;
 	}
 
-	public void setCartProductColor(Set<CartProductColorEntity> cartProductColor) {
+	public void setCartProductColor(Set<CartProductColor> cartProductColor) {
 		this.cartProductColor = cartProductColor;
 	}
 

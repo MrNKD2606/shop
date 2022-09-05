@@ -5,21 +5,21 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "categories")
-public class CategoryEntity extends BaseEntity {
+@Table(name = "roles")
+public class Role extends BaseEntity {
 
-	@Column(name = "code")
+	@Column
 	private String code;
 
-	@Column(name = "name")
+	@Column
 	private String name;
 
-	@OneToMany(mappedBy = "category")
-	private List<ProductEntity> productes = new ArrayList<>();
+	@ManyToMany(mappedBy = "roles")
+	private List<Account> users = new ArrayList<>();
 
 	public String getCode() {
 		return code;
@@ -37,12 +37,11 @@ public class CategoryEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public List<ProductEntity> getProductes() {
-		return productes;
+	public List<Account> getUsers() {
+		return users;
 	}
 
-	public void setProductes(List<ProductEntity> productes) {
-		this.productes = productes;
+	public void setUsers(List<Account> users) {
+		this.users = users;
 	}
-
 }

@@ -1,17 +1,15 @@
 package com.nkd.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class AbstractDTO<T> {
+public class AbstractDTO {
 
 	private Long id;
 	private String createdBy;
 	private Date createdDate;
 	private String modifiedBy;
 	private Date modifiedDate;
-	private List<T> listResult = new ArrayList<>();
+	private Integer status;
 
 	public String getCreatedBy() {
 		return createdBy;
@@ -45,20 +43,20 @@ public class AbstractDTO<T> {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public List<T> getListResult() {
-		return listResult;
-	}
-
-	public void setListResult(List<T> listResult) {
-		this.listResult = listResult;
-	}
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

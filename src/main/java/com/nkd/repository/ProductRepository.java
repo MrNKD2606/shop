@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.ProductEntity;
+import com.nkd.entity.Product;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	boolean existsByMasp(String masp);
 
-	ProductEntity findOneByMasp(String masp);
+	Product findOneByMasp(String masp);
 
-	List<ProductEntity> findAllByCategoryCode(String categoryCode);
+	List<Product> findAllByCategoryCode(String categoryCode);
+
+	List<Product> findAllByStatus(int status);
 
 }

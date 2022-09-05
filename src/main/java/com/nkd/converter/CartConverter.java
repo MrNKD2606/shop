@@ -8,31 +8,30 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.nkd.dto.CartDTO;
+import com.nkd.dto.ColorDTO;
 import com.nkd.dto.OrderDTO;
-import com.nkd.entity.CartEntity;
-import com.nkd.entity.CartProductColorEntity;
-import com.nkd.entity.ProductColorEntity;
+import com.nkd.entity.Cart;
+import com.nkd.entity.CartProductColor;
+import com.nkd.entity.ProductColor;
 
 @Component
 public class CartConverter {
 
-	public OrderDTO toOrderDto(ProductColorEntity entity) {
+	public OrderDTO toOrderDto(ProductColor entity) {
 		OrderDTO dto = new OrderDTO();
 		dto.setMasp(entity.getProduct().getMasp());
 		dto.setName(entity.getProduct().getName());
 		dto.setImage(entity.getProduct().getImage());
 		dto.setShortDescription(entity.getProduct().getShortDescription());
-		dto.setColorName(entity.getColor().getName());
-		dto.setColorCode(entity.getColor().getCode());
+		dto.setColor(new ColorDTO(entity.getColor().getName(), entity.getColor().getCode()));
 		dto.setCost(entity.getProduct().getCost());
 		dto.setPercent(entity.getPercent());
 		dto.setQuantity(entity.getQuantity());
-		dto.setImage(entity.getProduct().getImage());
 		return dto;
 	}
 
-	public CartEntity toEntity(CartDTO dto) {
-		CartEntity entity = new CartEntity();
+	public Cart toEntity(CartDTO dto) {
+		Cart entity = new Cart();
 		entity.setNameCustomer(dto.getName());
 		entity.setPhoneCustomer(dto.getPhone());
 		entity.setAddressCustomer(dto.getAddress());
@@ -42,7 +41,7 @@ public class CartConverter {
 		return entity;
 	}
 
-	public CartDTO toDto(CartEntity entity) {
+	public CartDTO toDto(Cart entity) {
 		CartDTO dto = new CartDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getNameCustomer());
@@ -53,24 +52,23 @@ public class CartConverter {
 		dto.setStatus(entity.getStatus());
 		dto.setMaCart(entity.getMaCart());
 		Set<OrderDTO> list = new HashSet<>();
-		for (CartProductColorEntity item : entity.getCartProductColor()) {
+		for (CartProductColor item : entity.getCartProductColor()) {
 			OrderDTO order = new OrderDTO();
 			order.setAmount(item.getAmount());
 			order.setPercent(item.getPercent());
 			order.setCost(item.getCost());
 			order.setName(item.getProduct().getName());
 			order.setMasp(item.getProduct().getMasp());
-			order.setColorName(item.getColor().getName());
-			order.setColorCode(item.getColor().getCode());
+			order.setColor(new ColorDTO(item.getColor().getName(), item.getColor().getCode()));
 			list.add(order);
 		}
 		dto.setListOrder(list);
 		return dto;
 	}
 
-	public List<CartDTO> toListDto(List<CartEntity> entities) {
+	public List<CartDTO> toListDto(List<Cart> entities) {
 		List<CartDTO> result = new ArrayList<>();
-		for (CartEntity item : entities) {
+		for (Cart item : entities) {
 			result.add(toDto(item));
 		}
 		return result;

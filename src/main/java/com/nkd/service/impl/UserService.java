@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.nkd.converter.UserConverter;
 import com.nkd.dto.UserDTO;
-import com.nkd.entity.RoleEntity;
-import com.nkd.entity.UserEntity;
+import com.nkd.entity.Role;
+import com.nkd.entity.Account;
 import com.nkd.repository.RoleRepository;
 import com.nkd.repository.UserRepository;
 import com.nkd.service.IUserService;
@@ -28,16 +28,16 @@ public class UserService implements IUserService {
 
 	@Override
 	public UserDTO save(UserDTO dto) {
-		UserEntity entity = new UserEntity();
+		Account entity = new Account();
 		if (dto.getId() != null) {
-			UserEntity oldEntity = userRepository.findOne(dto.getId());
+			Account oldEntity = userRepository.findOne(dto.getId());
 			entity = userConverter.toEntity(dto, oldEntity);
 		} else {
 			entity = userConverter.toEntity(dto);
 		}
-		List<RoleEntity> roles = new ArrayList<>();
+		List<Role> roles = new ArrayList<>();
 		for (String item : dto.getRoles()) {
-			RoleEntity role = new RoleEntity();
+			Role role = new Role();
 			role = roleRepository.findOneByCode(item).get();
 			roles.add(role);
 		}

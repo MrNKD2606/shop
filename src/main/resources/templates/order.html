@@ -20,7 +20,7 @@
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" th:src="@{'/images/' + ${product.getImage()}}" alt="..." /></div>
                     <div class="col-md-6">
-                    <form th:action="@{/web/addOrder/{masp}/{codeColor}(masp=${product.getMasp()}, codeColor=${product.getColorCode()})}" th:object="${product}" method="GET">
+                    <form th:action="@{/web/addOrder/{masp}/{codeColor}(masp=${product.getMasp()}, codeColor=${product.getColor().getCode()})}" th:object="${product}" method="GET">
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder" th:utext="${product.getName()}"></h1>
                         <div class="fs-5 mb-5">
@@ -30,10 +30,10 @@
                         </div>
                         <p class="lead" th:utext="${product.getShortDescription()}"></p>          	
                        	<div class="dropdown">
-				  			<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" th:utext="${product.getColorName()}">
+				  			<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" th:utext="${product.getColor().getName()}">
 				    		</button>
 				  			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-					    		<li th:each="color : ${product.getColors()}">
+					    		<li th:each="color : ${colors}">
 					    			<a class="dropdown-item" th:href="@{/web/order/{masp}/{codeColor}(masp=${product.getMasp()}, codeColor=${color.getCode()})}" th:utext="${color.getName()}"></a>
 					    		</li>
 				  			</ul>

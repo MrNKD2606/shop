@@ -2,10 +2,10 @@ package com.nkd.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.CategoryEntity;
+import com.nkd.entity.Category;
 
-public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
+public interface CategoryRepository extends JpaRepository<Category, Long>{
 
-	CategoryEntity findOneByCode(String categoryCode);
+	Category findOneByCode(String categoryCode);
 
 }

@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class Account extends BaseEntity {
 
 	@NotNull
 	@Size(min = 2, message = "User Name should have atleast 2 characters")
@@ -31,12 +31,9 @@ public class UserEntity extends BaseEntity {
 	@Column(name = "fullname")
 	private String fullName;
 
-	@Column
-	private Integer status;
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private List<RoleEntity> roles = new ArrayList<>();
+	private List<Role> roles = new ArrayList<>();
 
 	public String getUserName() {
 		return userName;
@@ -62,19 +59,12 @@ public class UserEntity extends BaseEntity {
 		this.fullName = fullName;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public List<RoleEntity> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleEntity> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
 }

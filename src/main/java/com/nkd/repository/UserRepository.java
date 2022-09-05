@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.UserEntity;
+import com.nkd.entity.Account;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<Account, Long> {
 
-	Optional<UserEntity> findOneByUserName(String item);
+	Optional<Account> findOneByUserName(String item);
 
-	UserEntity findOneByUserNameAndStatus(String username, int i);
+	Account findOneByUserNameAndStatus(String username, int i);
 	
 }

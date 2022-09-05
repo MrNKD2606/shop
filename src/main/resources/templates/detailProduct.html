@@ -68,18 +68,18 @@
 							
 							<th:block th:each="item : ${detailProducts}">
     							<tr>
-    								<td><span th:utext="${item.getCategoryName()}"></span></td>
+    								<td><span th:utext="${item.getCategory().getName()}"></span></td>
     								<td th:utext="${item.getMasp()}"></td>
     								<td><span th:utext="${item.getName()}"></span></td>
     								<td><span th:utext="${item.getShortDescription()}"></span></td>
-    								<td><span th:utext="${item.getColor()}"></span></td>
+    								<td><span th:utext="${item.getColor().getName()}"></span></td>
     								<td><span th:utext="${item.getPrice()}"></span></td>
     								<td><span th:utext="${item.getQuantity()}"></span></td>
     								<td>
-    									<a class="btn btn-primary" data-toggle="tooltip" title="Edit sản phẩm" th:href='@{/admin/showEditDetailProduct/{masp}/{codeColor}(masp=${masp}, codeColor=${item.getColorCode()})}'>
+    									<a class="btn btn-primary" data-toggle="tooltip" title="Edit sản phẩm" th:href='@{/admin/showEditDetailProduct/{masp}/{codeColor}(masp=${masp}, codeColor=${item.getColor().getCode()})}'>
     										<i class="fas fa-edit" aria-hidden="true"></i>
 										</a>
-										<a class="btn btn-danger" data-toggle="tooltip" title="Xóa bài viết" href='${#}'>
+										<a class="btn btn-danger" data-toggle="tooltip" title="Xóa bài viết" th:href='@{/admin/deleteProductColor/{masp}/{codeColor}(masp=${masp}, codeColor=${item.getColor().getCode()})}'>
     										<i class="far fa-calendar-times" aria-hidden="true"></i>
 										</a>
     								</td>

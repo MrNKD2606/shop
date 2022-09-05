@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class UserDTO extends AbstractDTO<UserDTO> {
+public class UserDTO extends AbstractDTO {
 
 	@NotBlank(message = "Name is mandatory")
 	private String userName;
@@ -12,17 +12,23 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private String fullName;
 
 	private String password;
-	
-	private int status;
-	
+
 	private List<String> roles;
-	
-	//@NotBlank(message = "Email is mandatory")
+
+	// @NotBlank(message = "Email is mandatory")
 	private String email;
 
-	//@Min(value = 18, message = "Age can not be less than 18")
-	//@Max(value = 50, message = "Age can not be greater than 50")
-	private Integer age;
+	// @Min(value = 18, message = "Age can not be less than 18")
+	// @Max(value = 50, message = "Age can not be greater than 50")
+	// private Integer age;
+
+	public UserDTO() {
+	}
+
+	public UserDTO(String username, String password) {
+		this.userName = username;
+		this.password = password;
+	}
 
 	public String getUserName() {
 		return userName;
@@ -40,13 +46,13 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 		this.email = email;
 	}
 
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+//	public Integer getAge() {
+//		return age;
+//	}
+//
+//	public void setAge(Integer age) {
+//		this.age = age;
+//	}
 
 	public String getFullName() {
 		return fullName;
@@ -72,13 +78,12 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 		this.roles = roles;
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
+//	public int getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(int status) {
+//		this.status = status;
+//	}
 
 }

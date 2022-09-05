@@ -7,21 +7,21 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.nkd.dto.CategoryDTO;
-import com.nkd.entity.CategoryEntity;
+import com.nkd.entity.Category;
 
 @Component
 public class CategoryConverter {
 
-	public CategoryDTO toDto(CategoryEntity entity) {
+	public CategoryDTO toDto(Category entity) {
 		CategoryDTO dto = new CategoryDTO();
 		dto.setCode(entity.getCode());
 		dto.setName(entity.getName());
 		return dto;
 	}
 	
-	public Set<CategoryDTO> toSetDto(List<CategoryEntity> entities){
+	public Set<CategoryDTO> toSetDto(List<Category> entities){
 		Set<CategoryDTO> result = new HashSet<>();
-		for(CategoryEntity item : entities) {
+		for(Category item : entities) {
 			result.add(toDto(item));
 		}
 		return result;

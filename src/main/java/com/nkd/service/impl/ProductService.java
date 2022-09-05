@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nkd.converter.ProductConverter;
 import com.nkd.dto.ProductDTO;
-import com.nkd.entity.ProductEntity;
+import com.nkd.entity.Product;
 import com.nkd.repository.ProductRepository;
 import com.nkd.service.IProductService;
 
@@ -22,14 +22,14 @@ public class ProductService implements IProductService {
 	private ProductRepository productRepository;
 
 	@Override
-	public List<ProductEntity> findAll() {
+	public List<Product> findAll() {
 		return productRepository.findAll();
 	}
 
 	@Transactional
 	@Override
-	public ProductEntity save(ProductDTO dto) {
-		ProductEntity entity = new ProductEntity();
+	public Product save(ProductDTO dto) {
+		Product entity = new Product();
 		if (dto.getId() != null) {
 			entity = productRepository.findOne(dto.getId());
 			entity = productConverter.toEntity(dto, entity);
@@ -41,13 +41,25 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public ProductEntity findOneByMasp(String masp) {
+	public Product findOneByMasp(String masp) {
 		return productRepository.findOneByMasp(masp);
 	}
 
 	@Override
-	public List<ProductEntity> findAllByCategoryCode(String categoryCode) {
+	public List<Product> findAllByCategoryCode(String categoryCode) {
 		return productRepository.findAllByCategoryCode(categoryCode);
+	}
+
+	@Override
+	public void delete(String masp) {
+		Product entity = productRepository.findOneByMasp(masp);
+		entity.setStatus(0);
+		productRepository.save(entity);
+	}
+
+	@Override
+	public List<Product> findAllByStatus(int status) {
+		return productRepository.findAllByStatus(status);
 	}
 
 }

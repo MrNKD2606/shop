@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "carts")
-public class CartEntity extends BaseEntity {
+public class Cart extends BaseEntity {
 
 	@Column(name = "macart")
 	private String maCart;
@@ -26,11 +26,8 @@ public class CartEntity extends BaseEntity {
 	@Column(name = "note")
 	private String note;
 
-	@Column(name = "status")
-	private int status;
-
 	@OneToMany(mappedBy = "cart")
-	private Set<CartProductColorEntity> cartProductColor;
+	private Set<CartProductColor> cartProductColor;
 
 	public String getMaCart() {
 		return maCart;
@@ -72,20 +69,12 @@ public class CartEntity extends BaseEntity {
 		this.note = note;
 	}
 
-	public Set<CartProductColorEntity> getCartProductColor() {
+	public Set<CartProductColor> getCartProductColor() {
 		return cartProductColor;
 	}
 
-	public void setCartProductColor(Set<CartProductColorEntity> cartProductColor) {
+	public void setCartProductColor(Set<CartProductColor> cartProductColor) {
 		this.cartProductColor = cartProductColor;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
 	}
 
 }

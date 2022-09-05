@@ -6,35 +6,35 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.nkd.dto.UserDTO;
-import com.nkd.entity.RoleEntity;
-import com.nkd.entity.UserEntity;
+import com.nkd.entity.Role;
+import com.nkd.entity.Account;
 
 @Component
 public class UserConverter {
 
-	public UserEntity toEntity(UserDTO dto) {
-		UserEntity entity = new UserEntity();
+	public Account toEntity(UserDTO dto) {
+		Account entity = new Account();
 		entity.setUserName(dto.getUserName());
 		entity.setFullName(dto.getFullName());
 		entity.setPassword(dto.getPassword());
 		return entity;
 	}
 	
-	public UserEntity toEntity(UserDTO dto, UserEntity oldEntity) {
+	public Account toEntity(UserDTO dto, Account oldEntity) {
 		oldEntity.setUserName(dto.getUserName());
 		oldEntity.setFullName(dto.getFullName());
 		oldEntity.setPassword(dto.getPassword());
 		return oldEntity;
 	}
 
-	public UserDTO toDto(UserEntity entity) {
+	public UserDTO toDto(Account entity) {
 		UserDTO dto = new UserDTO();
 		dto.setUserName(entity.getUserName());
 		dto.setFullName(entity.getFullName());
 		dto.setPassword(entity.getPassword());
 		dto.setStatus(entity.getStatus());
 		List<String> list = new ArrayList<>();
-		for(RoleEntity item : entity.getRoles()) {
+		for(Role item : entity.getRoles()) {
 			String roleCode = item.getCode();
 			list.add(roleCode);
 		}

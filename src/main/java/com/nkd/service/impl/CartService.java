@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import com.nkd.converter.CartConverter;
 import com.nkd.dto.CartDTO;
 import com.nkd.dto.OrderDTO;
-import com.nkd.entity.CartEntity;
-import com.nkd.entity.CartProductColorEntity;
+import com.nkd.entity.Cart;
+import com.nkd.entity.CartProductColor;
 import com.nkd.entity.CartProductColorId;
 import com.nkd.repository.CartProductColorRepository;
 import com.nkd.repository.CartRepository;
@@ -45,7 +45,7 @@ public class CartService implements ICartService {
 	@Override
 	public Set<OrderDTO> addOrderToSetOrder(OrderDTO order, Set<OrderDTO> list) {
 		for (OrderDTO item : list) {
-			if (item.getColorCode().equals(order.getColorCode()) && item.getMasp().equals(order.getMasp())) {
+			if (item.getColor().getCode().equals(order.getColor().getCode()) && item.getMasp().equals(order.getMasp())) {
 				order.setAmount(item.getAmount() + order.getAmount());
 				list.remove(item);
 			}
@@ -72,28 +72,28 @@ public class CartService implements ICartService {
 		return count;
 	}
 	
-	public CartEntity findOneByMaCart(String masp) {
+	public Cart findOneByMaCart(String masp) {
 		return cartRepository.findOneByMaCart(masp);
 	}
 
 	@Override
 	@Transactional
 	public void save(CartDTO myCart) {
-		CartEntity cartEntity = new CartEntity();
+		Cart cartEntity = new Cart();
 		cartEntity = cartConverter.toEntity(myCart);
 		cartEntity.setStatus(1);
 		cartEntity.setMaCart(myCart.getPhone() + String.valueOf(System.currentTimeMillis()));
 		cartRepository.save(cartEntity);
 		cartEntity.setId(findOneByMaCart(cartEntity.getMaCart()).getId());
 		
-		List<CartProductColorEntity> list = new ArrayList<>();
+		List<CartProductColor> list = new ArrayList<>();
 		for(OrderDTO item : myCart.getListOrder()) {
-			CartProductColorEntity entity = new CartProductColorEntity();
+			CartProductColor entity = new CartProductColor();
 			entity.setPercent(item.getPercent());
 			entity.setAmount(item.getAmount());
 			entity.setCost(item.getCost());
 			entity.setCart(cartEntity);
-			entity.setColor(colorService.findOneByCode(item.getColorCode()));
+			entity.setColor(colorService.findOneByCode(item.getColor().getCode()));
 			entity.setProduct(productService.findOneByMasp(item.getMasp()));
 			entity.setId(new CartProductColorId(entity.getProduct().getId(), entity.getColor().getId(), entity.getCart().getId()));
 			list.add(entity);
@@ -102,25 +102,25 @@ public class CartService implements ICartService {
 	}
 
 	@Override
-	public List<CartEntity> findAll() {
+	public List<Cart> findAll() {
 		return cartRepository.findAll();
 	}
 
 	@Override
-	public List<CartEntity> findAllByStatus(int status) {
+	public List<Cart> findAllByStatus(int status) {
 		return cartRepository.findAllByStatus(status);
 	}
 
 	@Override
 	@Transactional
-	public void payCart(CartEntity entity) {
+	public void payCart(Cart entity) {
 		entity.setStatus(0);
 		cartRepository.save(entity);
 	}
 
 	@Override
-	public List<CartEntity> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status) {
-		List<CartEntity> entities = new ArrayList<>();
+	public List<Cart> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status) {
+		List<Cart> entities = new ArrayList<>();
 		Date s = DateUtils.asDate(start);
 		Date e = DateUtils.asDate(end.plusDays(1));
 		entities = cartRepository.findAllByCreatedDateBetweenAndStatus(s, e, status);

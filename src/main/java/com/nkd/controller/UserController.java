@@ -28,7 +28,7 @@ import com.nkd.converter.ColorConverter;
 import com.nkd.dto.CartDTO;
 import com.nkd.dto.ColorDTO;
 import com.nkd.dto.OrderDTO;
-import com.nkd.entity.ProductColorEntity;
+import com.nkd.entity.ProductColor;
 import com.nkd.service.ICartService;
 import com.nkd.service.IDetailProductService;
 import com.nkd.service.IProductService;
@@ -68,7 +68,7 @@ public class UserController {
 	public String order(HttpServletRequest request, Model model, @PathVariable String masp,
 			@PathVariable(required = false) String codeColor) {
 		OrderDTO result = new OrderDTO();
-		List<ProductColorEntity> list = detailProductService.findAllProductByMasp(masp);
+		List<ProductColor> list = detailProductService.findAllProductByMasp(masp);
 		if (codeColor == null) {
 			if (list != null) {
 				result = cartConverter.toOrderDto(list.get(0));
@@ -78,12 +78,13 @@ public class UserController {
 		}
 
 		Set<ColorDTO> colors = new HashSet<>();
-		for (ProductColorEntity item : list) {
+		for (ProductColor item : list) {
 			colors.add(colorConverter.toDto(item.getColor()));
 		}
-		result.setColors(colors);
+		//result.setColors(colors);
 		result.setAmount(1);
 		model.addAttribute("product", result);
+		model.addAttribute("colors", colors);
 		CartDTO myCart = Utils.getCartInSession(request);
 		model.addAttribute("cart", myCart);
 		return "order";
@@ -93,7 +94,7 @@ public class UserController {
 	public String addOrder(HttpServletRequest request, Model model, @ModelAttribute("product") OrderDTO product,
 			@PathVariable String codeColor) {
 
-		ProductColorEntity entity = detailProductService.findOneByMaspAndCodeColor(product.getMasp(), codeColor);
+		ProductColor entity = detailProductService.findOneByMaspAndCodeColor(product.getMasp(), codeColor);
 		OrderDTO order = cartConverter.toOrderDto(entity);
 		order.setAmount(product.getAmount());
 
@@ -113,7 +114,7 @@ public class UserController {
 		CartDTO result = Utils.getCartInSession(request);
 		Set<OrderDTO> list = result.getListOrder();
 		for (OrderDTO item : list) {
-			if (item.getMasp().equals(masp) && item.getColorCode().equals(codeColor)) {
+			if (item.getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
 				list.remove(item);
 				break;
 			}
@@ -131,7 +132,7 @@ public class UserController {
 		CartDTO result = Utils.getCartInSession(request);
 		Set<OrderDTO> list = result.getListOrder();
 		for (OrderDTO item : list) {
-			if (item.getMasp().equals(masp) && item.getColorCode().equals(codeColor)) {
+			if (item.getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
 				if (edit.equals("plus")) {
 					item.setAmount(item.getAmount() + 1);
 				} else {
@@ -157,7 +158,7 @@ public class UserController {
 	}
 
 	@PostMapping(value = { "/web/addCart" })
-	public String editProduct(HttpServletRequest request, Model model, @ModelAttribute("cart") @Valid CartDTO cart) {
+	public String addCart(HttpServletRequest request, Model model, @ModelAttribute("cart") @Valid CartDTO cart) {
 		CartDTO myCart = Utils.getCartInSession(request);
 		myCart.setAddress(cart.getAddress());
 		myCart.setName(cart.getName());

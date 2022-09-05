@@ -8,16 +8,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "colors")
-public class ColorEntity extends BaseEntity {
+public class Color extends BaseEntity {
 
 	private String code;
 	private String name;
 
 	@OneToMany(mappedBy = "color")
-	private Set<ProductColorEntity> color;
+	private Set<ProductColor> color;
 
 	@OneToMany(mappedBy = "color")
-	private Set<CartProductColorEntity> cartColorProduct;
+	private Set<CartProductColor> cartColorProduct;
 
 	public String getCode() {
 		return code;
@@ -35,19 +35,19 @@ public class ColorEntity extends BaseEntity {
 		this.name = name;
 	}
 
-	public Set<ProductColorEntity> getColor() {
+	public Set<ProductColor> getColor() {
 		return color;
 	}
 
-	public void setColor(Set<ProductColorEntity> color) {
+	public void setColor(Set<ProductColor> color) {
 		this.color = color;
 	}
 
-	public Set<CartProductColorEntity> getCartColorProduct() {
+	public Set<CartProductColor> getCartColorProduct() {
 		return cartColorProduct;
 	}
 
-	public void setCartColorProduct(Set<CartProductColorEntity> cartColorProduct) {
+	public void setCartColorProduct(Set<CartProductColor> cartColorProduct) {
 		this.cartColorProduct = cartColorProduct;
 	}
 

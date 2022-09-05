@@ -3,7 +3,7 @@ package com.nkd.dto;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CartDTO extends AbstractDTO<CategoryDTO> {
+public class CartDTO extends AbstractDTO {
 
 	private Set<OrderDTO> listOrder;
 	private String name;
@@ -11,7 +11,6 @@ public class CartDTO extends AbstractDTO<CategoryDTO> {
 	private String phone;
 	private String address;
 	private String note;
-	private int status;
 
 	public CartDTO() {
 		this.listOrder = new HashSet<>();
@@ -73,13 +72,13 @@ public class CartDTO extends AbstractDTO<CategoryDTO> {
 		this.note = note;
 	}
 
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
+//	public int getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(int status) {
+//		this.status = status;
+//	}
 
 	public String getMaCart() {
 		return maCart;

@@ -5,11 +5,11 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.nkd.entity.ColorEntity;
+import com.nkd.entity.Color;
 
-public interface ColorRepository extends JpaRepository<ColorEntity, Long>{
+public interface ColorRepository extends JpaRepository<Color, Long>{
 
-	List<ColorEntity> findByCodeNotIn(Set<String> code);
+	List<Color> findByCodeNotIn(Set<String> code);
 
-	ColorEntity findOneByCode(String colorCode);
+	Color findOneByCode(String colorCode);
 }
