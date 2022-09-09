@@ -9,5 +9,9 @@ public interface ICategoryService {
 	List<Category> findAll();
 	
 	Category findOneByCode(String categoryCode);
+
+	Category save(Category dto);
+
+	void delete(String code);
 	
 }

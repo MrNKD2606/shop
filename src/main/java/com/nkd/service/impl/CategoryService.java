@@ -24,4 +24,17 @@ public class CategoryService implements ICategoryService {
 	public Category findOneByCode(String categoryCode) {
 		return categoryRepository.findOneByCode(categoryCode);
 	}
+
+	@Override
+	public Category save(Category entity) {
+		entity.setStatus(1);
+		return categoryRepository.save(entity);
+	}
+
+	@Override
+	public void delete(String code) {
+		Category entity = findOneByCode(code);
+		entity.setStatus(0);
+		categoryRepository.save(entity);
+	}
 }

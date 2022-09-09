@@ -13,6 +13,10 @@ public class ProductDTO extends AbstractDTO {
 
 	public ProductDTO() {
 	}
+	
+	public ProductDTO(String masp) {
+		this.masp = masp;
+	}
 
 	public ProductDTO(ProductForm form) {
 		this.masp = form.getMasp();

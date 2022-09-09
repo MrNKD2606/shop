@@ -35,6 +35,7 @@ public class ProductService implements IProductService {
 			entity = productConverter.toEntity(dto, entity);
 		} else {
 			entity = productConverter.toEntity(dto);
+			entity.setStatus(1);
 		}
 
 		return productRepository.save(entity);

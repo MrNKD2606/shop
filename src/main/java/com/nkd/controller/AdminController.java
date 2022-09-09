@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nkd.converter.CartConverter;
 import com.nkd.converter.CategoryConverter;
@@ -86,10 +87,17 @@ public class AdminController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
-	public String product(Model model) {
-		model.addAttribute("products", productConverter.toListDto(productService.findAllByStatus(1)));
-		return "product";
+//	@RequestMapping(value = "/admin/product", method = RequestMethod.GET)
+//	public String product(Model model) {
+//		model.addAttribute("products", productConverter.toListDto(productService.findAllByStatus(1)));
+//		return "product";
+//	}
+
+	@GetMapping("/admin/product")
+	public ModelAndView showListProduct() {
+		ModelAndView mav = new ModelAndView("product");
+		mav.addObject("products", productConverter.toListDto(productService.findAllByStatus(1)));
+		return mav;
 	}
 
 	@GetMapping(value = { "/admin/carts", "/admin/carts/{status}" })
@@ -118,19 +126,35 @@ public class AdminController {
 		return "redirect:/admin/carts";
 	}
 
+//	@GetMapping(value = { "/admin/showEditProduct", "/admin/showEditProduct/{masp}" })
+//	public String showProduct(Model model, @PathVariable(required = false) String masp) {
+//		ProductForm productForm = new ProductForm();
+//		if (masp != null) {
+//			productForm = new ProductForm(productConverter.toDto(productService.findOneByMasp(masp)));
+//			model.addAttribute("add", false);
+//		} else {
+//			model.addAttribute("add", true);
+//		}
+//		Set<CategoryDTO> cartegorys = categoryConverter.toSetDto(categoryService.findAll());
+//		model.addAttribute("productForm", productForm);
+//		model.addAttribute("cartegorys", cartegorys);
+//		return "editProduct";
+//	}
+
 	@GetMapping(value = { "/admin/showEditProduct", "/admin/showEditProduct/{masp}" })
-	public String showProduct(Model model, @PathVariable(required = false) String masp) {
+	public ModelAndView showEditProduct(@PathVariable(required = false) String masp) {
+		ModelAndView mav = new ModelAndView("editProduct");
 		ProductForm productForm = new ProductForm();
 		if (masp != null) {
 			productForm = new ProductForm(productConverter.toDto(productService.findOneByMasp(masp)));
-			model.addAttribute("add", false);
+			mav.addObject("add", false);
 		} else {
-			model.addAttribute("add", true);
+			mav.addObject("add", true);
 		}
 		Set<CategoryDTO> cartegorys = categoryConverter.toSetDto(categoryService.findAll());
-		model.addAttribute("productForm", productForm);
-		model.addAttribute("cartegorys", cartegorys);
-		return "editProduct";
+		mav.addObject("productForm", productForm);
+		mav.addObject("cartegorys", cartegorys);
+		return mav;
 	}
 
 	@PostMapping(value = { "/admin/product", "/admin/product/{masp}" })
@@ -186,17 +210,16 @@ public class AdminController {
 
 	@Transactional
 	@PostMapping(value = { "/admin/editDetailProduct/{masp}", "/admin/editDetailProduct/{masp}/{codeColor}" })
-	public String editDetailProduct(Model model, 
-			@PathVariable(required = false) String codeColor,
+	public String editDetailProduct(Model model, @PathVariable(required = false) String codeColor,
 			@ModelAttribute("detailProduct") DetailProductForm detailProduct) {
-		
+
 		if (codeColor != null) {
 			detailProductService.delete(detailProduct.getMasp(), codeColor);
-		} 
+		}
 		detailProductService.save(new DetailProductDTO(detailProduct));
 		return "redirect:/admin/detailProduct/{masp}";
 	}
-	
+
 	@GetMapping("/admin/deleteProductColor/{masp}/{codeColor}")
 	public String deleteProductColor(Model model, @PathVariable String masp, @PathVariable String codeColor) {
 		detailProductService.delete(masp, codeColor);

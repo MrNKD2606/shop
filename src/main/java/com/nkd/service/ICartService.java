@@ -16,7 +16,7 @@ public interface ICartService {
 	
 	int countProductToCart(Set<OrderDTO> list);
 
-	void save(CartDTO myCart);
+	CartDTO save(CartDTO myCart);
 	
 	List<Cart> findAll();
 	
@@ -27,4 +27,8 @@ public interface ICartService {
 	void payCart(Cart entity);
 	
 	List<Cart> findAllByCreatedDateBetweenAndStatus(LocalDate start, LocalDate end, int status);
+
+	CartDTO saveAPI(CartDTO cartDto);
+
+	CartDTO updateAPI(Cart entity);
 }

@@ -5,18 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nkd.converter.DetailProductConverter;
-import com.nkd.dto.DetailProductDTO;
+import com.nkd.converter.ProductColorConverter;
+import com.nkd.dto.ProductColorDTO;
 import com.nkd.entity.ProductColor;
 import com.nkd.entity.ProductColorId;
-import com.nkd.form.DetailProductForm;
 import com.nkd.repository.ProductColorRepository;
 import com.nkd.service.IColorService;
-import com.nkd.service.IDetailProductService;
+import com.nkd.service.IProductColorService;
 import com.nkd.service.IProductService;
 
 @Service
-public class DetailProductService implements IDetailProductService {
+public class ProductColorService implements IProductColorService {
 
 	@Autowired
 	private ProductColorRepository productColorRepository;
@@ -28,10 +27,12 @@ public class DetailProductService implements IDetailProductService {
 	private IColorService colorService;
 
 	@Autowired
-	private DetailProductConverter detailProductConverter;
+	private ProductColorConverter productColorConverter;
 
-	@Autowired
-	private IDetailProductService detailProductService;
+	@Override
+	public List<ProductColor> findAll() {
+		return productColorRepository.findAll();
+	}
 
 	@Override
 	public List<ProductColor> findAllProductByMasp(String masp) {
@@ -46,18 +47,6 @@ public class DetailProductService implements IDetailProductService {
 	}
 
 	@Override
-	public DetailProductForm getProduct(String masp, String codeColor) {
-		DetailProductDTO detailProduct = new DetailProductDTO();
-		if (codeColor != null) {
-			detailProduct = detailProductConverter
-					.toDto(detailProductService.findOneByMaspAndCodeColor(masp, codeColor));
-		} else {
-			detailProduct = detailProductConverter.toDto(productService.findOneByMasp(masp));
-		}
-		return new DetailProductForm(detailProduct);
-	}
-
-	@Override
 	public void delete(String masp, String codeColor) {
 		long idProduct = productService.findOneByMasp(masp).getId();
 		long idColor = colorService.findOneByCode(codeColor).getId();
@@ -65,8 +54,17 @@ public class DetailProductService implements IDetailProductService {
 	}
 
 	@Override
-	public DetailProductDTO save(DetailProductDTO detailProductDTO) {
-		return detailProductConverter.toDto(productColorRepository.save(detailProductConverter.toEntity(detailProductDTO)));
+	public void delete(String masp, String[] codeColors) {
+		long idProduct = productService.findOneByMasp(masp).getId();
+		for (String item : codeColors) {
+			long idColor = colorService.findOneByCode(item).getId();
+			productColorRepository.delete(new ProductColorId(idProduct, idColor));
+		}
+	}
+
+	@Override
+	public ProductColorDTO save(ProductColorDTO dto) {
+		return productColorConverter.toDto(productColorRepository.save(productColorConverter.toEntity(dto)));
 	}
 
 }

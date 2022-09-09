@@ -28,6 +28,17 @@ public class ProductColor {
 
 	private int quantity;
 
+	public ProductColor() {
+	}
+
+	public ProductColor(ProductColor obj) {
+		this.id = new ProductColorId(obj.getProduct().getId(), obj.getColor().getId());
+		this.product = obj.getProduct();
+		this.color = obj.getColor();
+		this.percent = obj.getPercent();
+		this.quantity = obj.getQuantity();
+	}
+
 	public ProductColorId getId() {
 		return id;
 	}

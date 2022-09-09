@@ -1,14 +1,16 @@
 package com.nkd.dto;
 
-public class OrderDTO extends DetailProductDTO {
+public class OrderDTO extends ProductColorDTO {
 
 	private int amount;
+	private Long cost;
 
 	public OrderDTO() {
 	}
 
 	public long getPrice() {
-		return super.getCost() * (100 + super.getPercent()) / 100;
+		return this.cost * (100 + super.getPercent()) / 100;
+		// return super.getCost() * (100 + super.getPercent()) / 100;
 	}
 
 	public int getAmount() {
@@ -19,4 +21,11 @@ public class OrderDTO extends DetailProductDTO {
 		this.amount = amount;
 	}
 
+	public Long getCost() {
+		return cost;
+	}
+
+	public void setCost(Long cost) {
+		this.cost = cost;
+	}
 }

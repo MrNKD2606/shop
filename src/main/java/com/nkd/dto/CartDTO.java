@@ -6,10 +6,10 @@ import java.util.Set;
 public class CartDTO extends AbstractDTO {
 
 	private Set<OrderDTO> listOrder;
-	private String name;
+	private String nameCustomer;
 	private String maCart;
-	private String phone;
-	private String address;
+	private String phoneCustomer;
+	private String addressCustomer;
 	private String note;
 
 	public CartDTO() {
@@ -18,15 +18,15 @@ public class CartDTO extends AbstractDTO {
 
 	public Long getTotal() {
 		long total = 0;
-		for(OrderDTO item : listOrder) {
-			total = total + item.getAmount()*item.getPrice();
+		for (OrderDTO item : listOrder) {
+			total = total + item.getAmount() * item.getPrice();
 		}
 		return total;
 	}
-	
+
 	public int getCount() {
 		int count = 0;
-		for(OrderDTO item : listOrder) {
+		for (OrderDTO item : listOrder) {
 			count = count + item.getAmount();
 		}
 		return count;
@@ -40,28 +40,28 @@ public class CartDTO extends AbstractDTO {
 		this.listOrder = listOrder;
 	}
 
-	public String getName() {
-		return name;
+	public String getNameCustomer() {
+		return nameCustomer;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameCustomer(String nameCustomer) {
+		this.nameCustomer = nameCustomer;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhoneCustomer() {
+		return phoneCustomer;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneCustomer(String phoneCustomer) {
+		this.phoneCustomer = phoneCustomer;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getAddressCustomer() {
+		return addressCustomer;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAddressCustomer(String addressCustomer) {
+		this.addressCustomer = addressCustomer;
 	}
 
 	public String getNote() {
@@ -71,14 +71,6 @@ public class CartDTO extends AbstractDTO {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
-//	public int getStatus() {
-//		return status;
-//	}
-//
-//	public void setStatus(int status) {
-//		this.status = status;
-//	}
 
 	public String getMaCart() {
 		return maCart;

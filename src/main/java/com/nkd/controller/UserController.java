@@ -94,7 +94,7 @@ public class UserController {
 	public String addOrder(HttpServletRequest request, Model model, @ModelAttribute("product") OrderDTO product,
 			@PathVariable String codeColor) {
 
-		ProductColor entity = detailProductService.findOneByMaspAndCodeColor(product.getMasp(), codeColor);
+		ProductColor entity = detailProductService.findOneByMaspAndCodeColor(product.getProduct().getMasp(), codeColor);
 		OrderDTO order = cartConverter.toOrderDto(entity);
 		order.setAmount(product.getAmount());
 
@@ -114,7 +114,7 @@ public class UserController {
 		CartDTO result = Utils.getCartInSession(request);
 		Set<OrderDTO> list = result.getListOrder();
 		for (OrderDTO item : list) {
-			if (item.getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
+			if (item.getProduct().getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
 				list.remove(item);
 				break;
 			}
@@ -132,7 +132,7 @@ public class UserController {
 		CartDTO result = Utils.getCartInSession(request);
 		Set<OrderDTO> list = result.getListOrder();
 		for (OrderDTO item : list) {
-			if (item.getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
+			if (item.getProduct().getMasp().equals(masp) && item.getColor().getCode().equals(codeColor)) {
 				if (edit.equals("plus")) {
 					item.setAmount(item.getAmount() + 1);
 				} else {
@@ -160,9 +160,9 @@ public class UserController {
 	@PostMapping(value = { "/web/addCart" })
 	public String addCart(HttpServletRequest request, Model model, @ModelAttribute("cart") @Valid CartDTO cart) {
 		CartDTO myCart = Utils.getCartInSession(request);
-		myCart.setAddress(cart.getAddress());
-		myCart.setName(cart.getName());
-		myCart.setPhone(cart.getPhone());
+		myCart.setAddressCustomer(cart.getAddressCustomer());
+		myCart.setNameCustomer(cart.getNameCustomer());
+		myCart.setPhoneCustomer(cart.getPhoneCustomer());
 		myCart.setNote(cart.getNote());
 		cartService.save(myCart);
 		

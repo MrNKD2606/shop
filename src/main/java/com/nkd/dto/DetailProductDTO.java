@@ -12,6 +12,17 @@ public class DetailProductDTO extends ProductDTO {
 	public DetailProductDTO() {
 	}
 	
+	public DetailProductDTO(ProductDTO productDto) {
+		super();
+	}
+	
+	public DetailProductDTO(DetailProductDTO obj) {
+		super.setMasp(obj.getMasp());
+		this.percent = obj.getPercent();
+		this.quantity = obj.getQuantity();
+		this.color = obj.getColor();
+	}
+	
 	public DetailProductDTO(DetailProductForm product) {
 		super.setMasp(product.getMasp());
 		this.percent = product.getPercent();
